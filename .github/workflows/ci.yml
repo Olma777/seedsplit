@@ -1,0 +1,17 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    # Linux-раннер: бесплатные минуты. seedsplit — чистая логика (shellcheck +
+    # vendor-check + bats); macOS-примитивы стабятся PATH-стабами в тестах.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y bats shellcheck
+      - name: Lint
+        run: shellcheck seedsplit install.sh tools/vendor-common.sh
+      - name: Vendored common is in sync with pinned securetrash
+        run: ./tools/vendor-common.sh --check
+      - name: Unit tests
+        run: bats test/
