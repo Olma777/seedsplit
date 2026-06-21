@@ -205,7 +205,12 @@ _split() { # $1=secret $2=N $3=T
 
 @test "KAT: GF(256) multiply matches FIPS-197 vectors" {
   # 0x57·0x13=0xfe(254), 0x57·0x83=0xc1(193), 0x01·0xab=0xab(171) — эталон AES (FIPS-197 §4.2).
-  run bash -c "source '$SCRIPT'; _gf_init; m(){ echo \$(( GF_EXP[ (GF_LOG[\$1]+GF_LOG[\$2]) % 255 ] )); }; echo \$(m 87 19) \$(m 87 131) \$(m 1 171)"
+  # Робастно к версии bash: single-quoted body (без вложенного экранирования), SCRIPT через $1,
+  # 'set +eu' нейтрализует строгий режим sourced-скрипта, индексы литеральные (не через $N).
+  run bash -c 'source "$1"; set +eu; _gf_init
+    echo $(( GF_EXP[(GF_LOG[87]+GF_LOG[19])%255] )) \
+         $(( GF_EXP[(GF_LOG[87]+GF_LOG[131])%255] )) \
+         $(( GF_EXP[(GF_LOG[1]+GF_LOG[171])%255] ))' _ "$SCRIPT"
   [ "$status" -eq 0 ]
   [ "$output" = "254 193 171" ]
 }
