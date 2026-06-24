@@ -20,10 +20,11 @@ jobs:
         run: |
           mkdir -p dist
           cp seedsplit install.sh dist/
+          cp windows/seedsplit.ps1 windows/install.ps1 dist/
 
       - name: Generate SHA256SUMS
         working-directory: dist
-        run: sha256sum seedsplit install.sh > SHA256SUMS
+        run: sha256sum seedsplit install.sh seedsplit.ps1 install.ps1 > SHA256SUMS
 
       - name: Sign SHA256SUMS (if a signing key is configured)
         working-directory: dist
@@ -49,7 +50,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          assets=(dist/seedsplit dist/install.sh dist/SHA256SUMS)
+          assets=(dist/seedsplit dist/install.sh dist/seedsplit.ps1 dist/install.ps1 dist/SHA256SUMS)
           [ -f dist/SHA256SUMS.sig ] && assets+=(dist/SHA256SUMS.sig)
           gh release create "$TAG" \
             --repo "$GITHUB_REPOSITORY" \

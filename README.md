@@ -58,6 +58,17 @@ curl -fsSL https://github.com/Di-kairos/seedsplit/releases/latest/download/insta
 Output is English by default. For Russian, set `ST_LANG=ru` (the tool also honors a
 Russian system locale automatically).
 
+### Windows (PowerShell, beta)
+
+A PowerShell port lives in [`windows/`](windows/README.md). Shares are **byte-compatible**
+with this build — split on macOS, combine on Windows, or the reverse. A known-answer test
+reconstructs a macOS-generated share-set on Windows CI to guarantee it.
+
+```powershell
+irm https://github.com/Di-kairos/seedsplit/releases/latest/download/install.ps1 -OutFile install.ps1
+# verify the hash against SHA256SUMS, then: pwsh -File install.ps1
+```
+
 ## Usage
 
 The secret is read from **stdin** or `--file`, **never** from argv (argv is visible in

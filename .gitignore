@@ -3,3 +3,5 @@
 *.log
 .DS_Store
 dist/
+# Временный каталог Windows-установщика (install.ps1)
+seedsplit-*/
