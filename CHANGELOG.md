@@ -5,6 +5,18 @@
 
 ## [Unreleased]
 
+## [0.3.1] — 2026-06-24
+
+Релиз догоняет ассеты до исходников: hardening установщика и подписи, осевший
+в `main` после тега `v0.3.0`, теперь попадает в публичный релиз.
+
+### Security
+- **install.sh fail-closed:** отсутствие `SHA256SUMS.sig` на релизе теперь прерывает
+  установку (обход для старых релизов — `ALLOW_UNSIGNED_LEGACY=1`); отсутствие `ssh-keygen`
+  больше не молчит, а громко предупреждает, что подпись не проверена (только целостность).
+- **Подпись релиза fail-closed:** `release.yml` прерывает выпуск (`exit 1`), если
+  `RELEASE_SIGNING_KEY` не задан, — неподписанный релиз невозможен.
+
 ## [0.3.0] — 2026-06-22
 
 Усиление целостности и UX по результатам внешнего аудита крипты + i18n и подпись релизов.
@@ -72,6 +84,7 @@
   порога, отказ при <T долях без утечки, детект порчи/чужого набора, бинарные секреты,
   границы N/T). shellcheck clean. Тесты идут на Linux-CI через PATH-стаб `uname`.
 
-[Unreleased]: https://github.com/Di-kairos/seedsplit/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/Di-kairos/seedsplit/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/Di-kairos/seedsplit/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/Di-kairos/seedsplit/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Di-kairos/seedsplit/releases/tag/v0.2.0
