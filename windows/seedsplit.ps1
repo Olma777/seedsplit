@@ -282,13 +282,15 @@ function Invoke-SsSplit {
             $C[0] = [int]$P[$k]
             for ($j = 1; $j -lt $t; $j++) { $C[$j] = [int]$rand[$ri]; $ri++ }
             for ($x = 1; $x -le $n; $x++) {
-                # Горнер: y = C[t-1]; y = y*x XOR C[j], j=t-2..0.
-                $y = $C[$t - 1]
+                # Горнер: ev = C[t-1]; ev = ev*x XOR C[j], j=t-2..0.
+                # ВАЖНО: PowerShell регистронезависим к именам — скаляр НЕ называть $y,
+                # иначе он схлопнется с массивом долей $Y и затрёт его (в bash регистр значим).
+                $ev = $C[$t - 1]
                 for ($j = $t - 2; $j -ge 0; $j--) {
-                    $y = Get-SsGFMul $y $x
-                    $y = $y -bxor $C[$j]
+                    $ev = Get-SsGFMul $ev $x
+                    $ev = $ev -bxor $C[$j]
                 }
-                $Y[$x] += ([int]$y).ToString('x2')
+                $Y[$x] += ([int]$ev).ToString('x2')
             }
         }
 

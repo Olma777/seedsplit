@@ -6,9 +6,13 @@
 # Если Windows-порт собирает из него тот же секрет — поле/формат/обёртка байт-идентичны.
 
 BeforeAll {
+    # ST_NO_MAIN глушит диспетчер на время дот-сорса. Снимаем его СРАЗУ после: иначе
+    # дочерние `& pwsh` в CLI-тестах унаследуют переменную и main у них не запустится
+    # (для самого дот-сорса достаточно guard-а `$MyInvocation.InvocationName -eq '.'`).
     $env:ST_NO_MAIN = '1'
     $script:ScriptPath = Join-Path $PSScriptRoot '..\seedsplit.ps1'
     . $script:ScriptPath
+    Remove-Item Env:\ST_NO_MAIN -ErrorAction SilentlyContinue
     Initialize-SsGF
 
     # Помощник: разбить секрет из файла, вернуть массив строк-долей (без stdin).
