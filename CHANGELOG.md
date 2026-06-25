@@ -5,6 +5,15 @@
 
 ## [Unreleased]
 
+## [0.3.2] — 2026-06-25
+
+Первый официальный выпуск с поддержкой Windows.
+
+### Added
+- **Windows PowerShell port (beta):** `windows/seedsplit.ps1` + `windows/install.ps1`.
+  Доли байт-совместимы с macOS/Linux-версией — KAT-кросс-совместимость зафиксирована
+  frozen-набором в Pester и подтверждена на реальном Windows (windows-CI green).
+
 ## [0.3.1] — 2026-06-24
 
 Релиз догоняет ассеты до исходников: hardening установщика и подписи, осевший
