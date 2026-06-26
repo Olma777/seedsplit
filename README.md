@@ -191,7 +191,7 @@ macOS logic — the same Shamir over GF(256), with `RNGCryptoServiceProvider` in
 
 ## License
 
-[MIT](LICENSE). Security issues — see [SECURITY.md](SECURITY.md); how to contribute —
+[MIT](LICENSE). Report security issues via [SECURITY.md](SECURITY.md); contributions via
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
 This software is provided "as is," without warranty of any kind. seedsplit splits a

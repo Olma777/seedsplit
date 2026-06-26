@@ -22,6 +22,8 @@ advisory is published and you'll be credited unless you prefer to stay anonymous
 
 In scope:
 
+- Anything that causes seedsplit to **claim a guarantee it does not provide**
+  (the project's whole point is honest cryptography — no false confidence).
 - The **own crypto implementation**: Shamir Secret Sharing over GF(256) —
   the field arithmetic (log/antilog tables, multiply/divide/inverse), polynomial
   evaluation, and Lagrange interpolation in `split` / `combine`. A flaw that makes
